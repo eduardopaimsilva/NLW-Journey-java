@@ -1,5 +1,8 @@
 package br.com.rocketseat.planner.trip;
 
+import br.com.rocketseat.planner.activities.ActivityRequestPayLoad;
+import br.com.rocketseat.planner.activities.ActivityResponse;
+import br.com.rocketseat.planner.activities.ActivityService;
 import br.com.rocketseat.planner.participant.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,9 @@ public class TripController {
 
     @Autowired
     private TripRepository repository;
+
+    @Autowired
+    private ActivityService activityService;
 
     @PostMapping
     public ResponseEntity<TripCreateResponse>createTrip(@RequestBody TripRequestPayload payload){
@@ -73,6 +79,19 @@ public class TripController {
         return ResponseEntity.notFound().build();
 
     }
+    @PostMapping("/{id}/activities")
+    public ResponseEntity<ActivityResponse>registerActivity(@PathVariable UUID id, @RequestBody ActivityRequestPayLoad payload) {
+        Optional<Trip> trip = this.repository.findById(id);
+        if (trip.isPresent()) {
+            Trip rawTrip = trip.get();
+
+            ActivityResponse activityResponse = this.activityService.registerActivity(payload, rawTrip);
+
+            return ResponseEntity.ok(activityResponse);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @PostMapping("/{id}/invite")
     public ResponseEntity<ParticipantCreateResponse>inviteParticipant(@PathVariable UUID id, @RequestBody ParticipantRequestPayload payload){
        Optional<Trip> trip = this.repository.findById(id);
