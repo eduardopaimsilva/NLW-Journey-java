@@ -1,4 +1,4 @@
-package br.com.rocketseat.planner.activities;
+package br.com.rocketseat.planner.activity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

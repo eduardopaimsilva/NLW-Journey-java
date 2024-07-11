@@ -1,6 +1,6 @@
 package br.com.rocketseat.planner.trip;
 
-import br.com.rocketseat.planner.activities.*;
+import br.com.rocketseat.planner.activity.*;
 import br.com.rocketseat.planner.participant.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
