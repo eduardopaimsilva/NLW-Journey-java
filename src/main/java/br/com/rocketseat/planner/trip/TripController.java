@@ -1,6 +1,7 @@
 package br.com.rocketseat.planner.trip;
 
 import br.com.rocketseat.planner.activity.*;
+import br.com.rocketseat.planner.link.LinkData;
 import br.com.rocketseat.planner.link.LinkRequestPayLoad;
 import br.com.rocketseat.planner.link.LinkResponse;
 import br.com.rocketseat.planner.link.LinkService;
@@ -142,6 +143,13 @@ public class TripController {
             return ResponseEntity.ok(linkResponse);
         }
         return ResponseEntity.notFound().build();
+    }
+    @GetMapping("/{id}/links")
+    public ResponseEntity<List<LinkData>> getAllLinks(@PathVariable UUID id) {
+        List<LinkData> linkDataList = this.linkService.getAllLinksFromTrip(id);
+        return ResponseEntity.ok(linkDataList);
+
+
     }
 
 }
